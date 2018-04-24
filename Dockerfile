@@ -18,14 +18,18 @@ RUN apt-get update --fix-missing \
     python \
     unzip \
     wget \
+    libopenmpi-dev \
+    openmpi-bin \
 &&  apt-get clean \
 &&  rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
-# Export compilers
-ENV CC clang-5.0
-ENV CXX clang++-5.0
-ENV FC gfortran
-ENV FF gfortran
+# Make open mpi use clang
+ENV OMPI_CC clang-5.0
+ENV OMPI_CXX clang++-5.0
+ENV CC mpicc
+ENV CXX mpicxx
+ENV FC mpif90
+ENV FF mpif77
 
 ENV HOME /app
 
