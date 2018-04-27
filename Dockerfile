@@ -12,14 +12,20 @@ RUN apt-get update --fix-missing \
 # dealii
 ARG VER=master
 ARG BUILD_TYPE=Release
-RUN git clone https://github.com/dealii/dealii.git dealii-$VER-src && \
+ARG INSTALL_DIR=/usr/lib
+RUN cd /tmp && \
+    git clone https://github.com/dealii/dealii.git dealii-$VER-src && \
     cd dealii-$VER-src && \
     git checkout $VER && \
     mkdir build && cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=~/dealii-$VER \
+    cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -GNinja \
           ../ && \
     ninja library && \
-    cp summary.log ~/dealii-$VER/summary.log
+    ninja install && \
+    cd /tmp && \
+    rm -rf dealii-$VER-src
+
+ENV DEAL_II_DIR $INSTALL_DIR
 
