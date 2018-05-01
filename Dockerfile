@@ -6,6 +6,7 @@ RUN apt-get update --fix-missing \
     git \
     ninja-build \
     numdiff \
+    pkg-config \
 &&  apt-get clean \
 &&  rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
