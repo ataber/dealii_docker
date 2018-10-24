@@ -19,7 +19,7 @@ RUN cd /tmp && \
     cd dealii-$VER-src && \
     git checkout $VER && \
     mkdir build && cd build && \
-    cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
+    CXX=mpicxx cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
           -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -GNinja \
           ../ && \
